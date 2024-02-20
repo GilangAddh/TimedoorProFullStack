@@ -1,43 +1,6 @@
 <?php
-require './class/Person.php';
-require './class/BodyMassIndex.php';
-require './class/RelativeFatMass.php';
+
 require './helper/config.php';
-
-
-$objPerson = new Person;
-$bmi = new BodyMassIndex;
-$rfm = new RelativeFatMass;
-
-function inputChecker(string $inputName, $defaultValue): ?string
-{
-    return isset($_GET[$inputName]) ? $_GET[$inputName] : $defaultValue;
-}
-
-$objPerson->bio(
-    inputChecker('name', $objPerson->name),
-    inputChecker('age', $objPerson->age),
-    inputChecker('gender', $objPerson->gender)
-);
-
-$objPerson->bodyFact(
-    inputChecker('height', $objPerson->height),
-    inputChecker('weight', $objPerson->weight),
-    inputChecker('waist', $objPerson->waistSize)
-);
-
-$bmi->calculate(
-    inputChecker('height', $objPerson->height),
-    inputChecker('weight', $objPerson->weight),
-);
-$bmi->determineCategory();
-
-$rfm->calculate(
-    $objPerson->height,
-    $objPerson->waistSize,
-    $objPerson->gender
-);
-$rfm->determineCategory($objPerson->gender);
 
 
 $config = [
