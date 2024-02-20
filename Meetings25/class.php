@@ -1,8 +1,16 @@
 <?php
-class Animal
+class NewAnimal
 {
     public $name;
-    public $foot, $isMamal;
+    protected $foot;
+    private $isMamal;
+
+    // public function __construct($nama, $foot, $isMamal)
+    // {
+    //     $this->name = $nama;
+    //     $this->foot = $foot;
+    //     $this->isMamal = $isMamal;
+    // }
 
     public function introduce(string $sound): void
     {
@@ -21,14 +29,14 @@ class Animal
     }
 }
 
-$cat = new Animal;
+$cat = new NewAnimal("Kucing Oren", 4, true);
 
 print_r($cat);
 echo "<br>";
 
-$cat->name = "Kucing Oren";
-$cat->foot = 4;
-$cat->isMamal = true;
+// $cat->name = "Kucing Oren";
+// $cat->foot = 4;
+// $cat->isMamal = true;
 
 print_r($cat);
 echo "<br>";
