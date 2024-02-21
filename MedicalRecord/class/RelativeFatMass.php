@@ -7,7 +7,7 @@ class RelativeFatMass
     public function calculate(float $height, float $waistSize, string $gender): void
     {
         if ($height != 0 || $waistSize != 0) {
-            if ($gender === 'm') {
+            if ($gender === 'Male') {
                 $this->score = 64 - 20 * ($height / $waistSize);
             } else {
                 $this->score = 76 - 20 * ($height / $waistSize);
@@ -17,7 +17,7 @@ class RelativeFatMass
 
     public function determineCategory($gender): string
     {
-        if ($gender === 'm') {
+        if ($gender === 'Male') {
             if ($this->score >= 2 && $this->score <= 5) {
                 $this->category = 'Essential fat';
             } elseif ($this->score >= 6 && $this->score <= 13) {

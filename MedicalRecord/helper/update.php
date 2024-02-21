@@ -1,6 +1,6 @@
 <?php
-
 require 'connection.php';
+$id = $_GET["id"];
 
 require './../class/Person.php';
 require './../class/BodyMassIndex.php';
@@ -39,11 +39,8 @@ $rfm->calculate(
 );
 $rfm->determineCategory($objPerson->gender);
 
-$inserQuery = "INSERT INTO record (name, age, gender, height, weight, waist_size, bmi_score, bmi_category, rfm_score, rfm_category) VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-$userInput = [$objPerson->name, $objPerson->age, $objPerson->gender, $objPerson->height, $objPerson->weight, $objPerson->waistSize, $bmi->score, $bmi->category, $rfm->score, $rfm->category];
-
-$prepareQuery = $connection->prepare($inserQuery);
-$insert = $prepareQuery->execute($userInput);
-
+$updateQuery = "UPDATE record SET name = ?, age = ?, gender = ?, height = ?, weight= ?, waist_size = ?, bmi_score = ?, bmi_category = ?, rfm_score = ?, rfm_category = ? WHERE id = ?";
+$userInput = [$objPerson->name, $objPerson->age, $objPerson->gender, $objPerson->height, $objPerson->weight, $objPerson->waistSize, $bmi->score, $bmi->category, $rfm->score, $rfm->category, $id];
+$prepareQuery = $connection->prepare($updateQuery);
+$update = $prepareQuery->execute($userInput);
 header("Location: ../index.php");

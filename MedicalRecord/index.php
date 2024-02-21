@@ -1,28 +1,11 @@
 <?php
 
-require './helper/config.php';
-
-
-$config = [
-    'host' => "127.0.0.1",
-    'database' => "medical_record",
-    'user' => "root",
-    'password' => "",
-];
-
-$mysqlConnection = new MySQLConnection(
-    $config['host'],
-    $config['database'],
-    $config['user'],
-    $config['password']
-);
-$connection = $mysqlConnection->getConnection();
+require './helper/connection.php';
 
 $fetchAllQuery = "SELECT * FROM record";
 $prepareFetchAllQuery = $connection->prepare($fetchAllQuery);
 $prepareFetchAllQuery->execute();
 $record = $prepareFetchAllQuery->fetchAll();
-print_r($record);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,8 +54,8 @@ print_r($record);
                 <td><?= $value['rfm_score']; ?></td>
                 <td><?= $value['rfm_category']; ?></td>
                 <td>
-                    <a href="./edit.php">Edit</a>
-                    <a href="#" onclick="confirm('Apakah Anda Ingin Menghapus Data Ini?')">Delete</a>
+                    <a href="./edit.php?id=<?= $value['id']; ?>">Edit</a>
+                    <a href="./helper/delete.php?id=<?= $value['id']; ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Data Ini?')">Delete</a>
                 </td>
             </tr>
         <?php } ?>
