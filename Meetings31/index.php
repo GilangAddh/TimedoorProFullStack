@@ -6,7 +6,6 @@ $selectAll = "SELECT * FROM product";
 $prepareSelectAll = $connection->prepare($selectAll);
 $prepareSelectAll->execute();
 $products = $prepareSelectAll->fetchAll();
-//print_r($products);
 
 
 $totalRecord = count($products);
@@ -17,11 +16,6 @@ $pagination = new Pagination($totalRecord, $recordPerPage, $currentPage);
 
 $offset = $pagination->getOffset();
 
-// $select = "SELECT * FROM product LIMIT ? OFFSET ?";
-// $limitValues = [$recordPerPage, $offset];
-// $prepareSelect = $connection->prepare($select);
-// $prepareSelect->execute($limitValues);
-// $products = $prepareSelect->fetchAll();
 $select = "SELECT * FROM product LIMIT ?, ?";
 $prepareSelect = $connection->prepare($select);
 $prepareSelect->bindValue(1, $offset, PDO::PARAM_INT);
@@ -29,14 +23,6 @@ $prepareSelect->bindValue(2, $recordPerPage, PDO::PARAM_INT);
 $prepareSelect->execute();
 $productsList = $prepareSelect->fetchAll();
 
-// $preparedSelect = $connection->prepare($select);
-// $output = $preparedSelect->execute([2]);
-// $prepareSelect = $connection->prepare($select);
-// $prepareSelect->execute($limitValues);
-// $productsPage = $prepareSelect->fetchAll();
-// print_r($productsPage)
-
-// echo $products;
 ?>
 
 <!DOCTYPE html>
